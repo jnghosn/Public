@@ -1,0 +1,212 @@
+#! python3
+
+
+#Script to create 4 DHCP scopes for each site, 
+
+print ("Script to create DHCP Scopes")
+print ("------------------------------------")
+print ("Press 1 for /28")
+print ("Press 2 for /26")
+print ("Press 3 for /24")
+print ("Press 4 for /23")
+
+subnetOption = int(input())
+
+
+if subnetOption == 1:
+	print ("Option " + str(subnetOption) + " selected, creating scopes with a /28 subnet mask")
+	print ("")
+	
+	print("What is the scope name? - e.g. eg Some St - Somewhereville - NSW - NBN")
+	scopeName = str(input())
+	print ("")
+	
+	print ("Enter the 3rd octet ie 10.0.??.0 (number where the ?? is)")
+	thirdO = int(input())
+	print ("")
+	
+	print ("Enter the 4th octet ie 10.0.0.?? (number where the ?? is)")
+	fourthO = int(input())
+	print ("")
+	print ("")
+	
+	secondO = 0  # change this value if you want to move the subnet scale, - 32 from wherever you want the first subnet to start.
+	
+	for i in range(4):
+		secondO = secondO + 32
+		startIp = fourthO + 4
+		endIp = fourthO + 14
+		routerIp = fourthO + 1
+			
+		if i == 0:
+			corpScope = ("Add-DhcpServerv4Scope -Name \"" + scopeName + " CORP\" -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.240 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (corpScope)
+			print ("")
+			
+		elif i == 1:
+			byodScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " BYOD -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.240 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (byodScope)
+			print ("")
+			
+		elif i == 2:
+			clientScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " CLIENT -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.240 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (clientScope)
+			print ("")
+			
+		elif i == 3:
+			guestScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " GUEST -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.240 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (guestScope)
+
+	
+if subnetOption == 2:
+	print ("Option " + str(subnetOption) + " selected, creating scopes with a /26 subnet mask")
+	print ("")
+	
+	print("What is the scope name? - e.g. eg Some St - Somewhereville - NSW - NBN")
+	scopeName = str(input())
+	print ("")
+	
+	print ("Enter the 3rd octet ie 10.0.??.0 (number where the ?? is)")
+	thirdO = int(input())
+	print ("")
+	
+	print ("Enter the 4th octet ie 10.0.0.?? (number where the ?? is)")
+	fourthO = int(input())
+	print ("")
+	print ("")
+	
+	secondO = 8
+	
+	for i in range(4):
+		secondO = secondO + 32
+		startIp = fourthO + 16
+		endIp = fourthO + 62
+		routerIp = fourthO + 1
+		
+		if i == 0:
+			corpScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " CORP -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.192 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (corpScope)
+			print ("")
+			
+		elif i == 1:
+			byodScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " BYOD -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.192 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (byodScope)
+			print ("")
+			
+		elif i == 2:
+			clientScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " CLIENT -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.192 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (clientScope)
+			print ("")
+			
+		elif i == 3:
+			guestScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " GUEST -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.192 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (guestScope)		
+		
+
+	
+if subnetOption == 3:
+	print ("Option " + str(subnetOption) + " selected, creating scopes with a /24 subnet mask")
+	print ("")
+	
+	print("What is the scope name? - e.g. eg Some St - Somewhereville - NSW - NBN")
+	scopeName = str(input())
+	print ("")
+	
+	print ("Enter the 3rd octet ie 10.0.??.0 (number where the ?? is)")
+	thirdO = int(input())
+	print ("")
+	
+	print ("Enter the 4th octet ie 10.0.0.?? (number where the ?? is)")
+	fourthO = int(input())
+	print ("")
+	print ("")
+	
+	secondO = 16
+	
+	for i in range(4):
+		secondO = secondO + 32
+		startIp = fourthO + 50
+		endIp = fourthO + 254
+		routerIp = fourthO + 1
+		
+		if i == 0:
+			corpScope = ("Add-DhcpServerv4Scope -Name \"" + scopeName + " CORP\" -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.0 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (corpScope)
+			print ("")
+			
+		elif i == 1:
+			byodScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " BYOD -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.0 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (byodScope)
+			print ("")
+			
+		elif i == 2:
+			clientScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " CLIENT -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.0 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (clientScope)
+			print ("")
+			
+		elif i == 3:
+			guestScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " GUEST -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdO) + "." + str(endIp) + " -SubnetMask 255.255.255.0 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (guestScope)		
+		
+	
+if subnetOption == 4:
+	print ("Option " + str(subnetOption) + " selected, creating scopes with a /23 subnet mask")
+	print ("")
+	
+	print("What is the scope name? - e.g. eg Some St - Somewhereville - NSW - NBN")
+	scopeName = str(input())
+	print ("")
+	
+	print ("Enter the 3rd octet ie 10.0.??.0 (number where the ?? is)")
+	thirdO = int(input())
+	print ("")
+	
+	print ("Enter the 4th octet ie 10.0.0.?? (number where the ?? is)")
+	fourthO = int(input())
+	print ("")
+	print ("")
+	
+	secondO = 24
+	
+	for i in range(4):
+		secondO = secondO + 32
+		startIp = fourthO + 100
+		endIp = fourthO + 254
+		routerIp = fourthO + 1
+		
+		thirdOend = thirdO + 1 #Bump up the third octet by 1 in the end range 
+		
+		if i == 0:
+			corpScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " CORP -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdOend) + "." + str(endIp) + " -SubnetMask 255.255.254.0 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (corpScope)
+			print ("")
+			
+		elif i == 1:
+			byodScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " BYOD -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdOend) + "." + str(endIp) + " -SubnetMask 255.255.254.0 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (byodScope)
+			print ("")
+			
+		elif i == 2:
+			clientScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " CLIENT -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdOend) + "." + str(endIp) + " -SubnetMask 255.255.254.0 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (clientScope)
+			print ("")
+			
+		elif i == 3:
+			guestScope = ("Add-DhcpServerv4Scope -Name " + scopeName + " GUEST -StartRange 10." + str(secondO) + "." + str(thirdO) + "."  + str(startIp) + " -EndRange 10." + str(secondO) + "." + str(thirdOend) + "." + str(endIp) + " -SubnetMask 255.255.254.0 -LeaseDuration 1.00:00:00 \nSet-DhcpServerv4OptionValue -ScopeId 10." + str(secondO) + "." + str(thirdO) + "." + str(fourthO) + " -Router  10." + str(secondO) + "." + str(thirdO) + "." + str(routerIp) + " -DnsDomain test.com.au -DnsServer 192.168.160.52")
+			
+			print (guestScope)	
